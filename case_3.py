@@ -95,7 +95,7 @@ def get_rolling_retention_churn(n_day):
         cnt_retained_users += 1
         break
 
-  result = cnt_retained_users / total_users if total_users > 0 else 0
+  result = (1 - cnt_retained_users / total_users) if total_users > 0 else 0
   return round(result,5)
 
 def get_dec_mau(end_date):
@@ -152,10 +152,10 @@ def get_avg_dau():
   avg_dau = sum(dau_values) / len(dau_values) if dau_values else 0
   return round(avg_dau,5)
 
-retention_15_day = get_retention(15)
-rolling_retention = get_rolling_retention(30)
+retention_15_day = get_retentionn(n_day=15)
+rolling_retention = get_rolling_retention(n_day=30)
 lifetime = get_lifetime(max_days=90)
-churn_29 = 1 - get_rolling_retention_churn(29)
+churn_29 = get_rolling_retention_churn(n_day=29)
 
 end_date = datetime(2021, 12, 31).date()
 dec_mau = get_dec_mau(end_date)
