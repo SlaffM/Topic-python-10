@@ -64,8 +64,10 @@ def get_rolling_retention(n_day):
   for id, reg_date in jan_registrations.items():
     target_date = reg_date + timedelta(days=n_day)
     user_logins = logins.get(id, set())
-    if any(login >= target_date for login in user_logins):
-      cnt_reteined_users += 1
+    for login in user_logins:
+      if login >= target_date:
+        cnt_reteined_users += 1
+        break
   result = cnt_reteined_users / cohort_size * 100 if cohort_size > 0 else 0
   return round(result,5)
 
