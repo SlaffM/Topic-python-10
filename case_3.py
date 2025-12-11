@@ -73,13 +73,13 @@ def get_rolling_retention(n_day):
 
 def get_lifetime(max_days):  
   lifetime = 0.0
-  for n in range(1, max_days):
-    day_n = n - 1
+  for day_n in range(0, max_days):    
     retained = 0
 
     for u, reg_date in registrations.items():
-      target_date = reg_date + timedelta(days=day_n)
-      if target_date in logins[u]:
+      target_date = reg_date + timedelta(days=day_n)  
+      user_logins = logins[u]    
+      if target_date in user_logins:
         retained += 1
     r_n = retained / total_users
     lifetime += r_n
