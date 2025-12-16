@@ -1,0 +1,15 @@
+def count_success_and_failure(file_path):
+  headers = ['type', 'date', 'file', 'line', 'message']
+  with open('auto_purchase.log', 'r', encoding='utf-8') as f:
+    all_lines = f.readlines()  
+    dict_lines = [
+        { k: val.strip() for k, val in zip(headers, line.split('|')) } 
+        for line in all_lines
+    ]
+    attempts = list(filter(
+        lambda k: 'Обновляем подписку пользователю id' in k['message'], dict_lines
+    ))
+    err_attempts = list(filter(
+        lambda k: k['type'].lower()=='error', dict_lines
+    ))
+    return (len(attempts) - len(err_attempts), len(err_attempts))
