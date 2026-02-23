@@ -35,14 +35,16 @@ def get_platform_city_results():
 
   return sorted_towns
 
-res = get_platform_city_results()
-res
+def write_dict_to_file(dict_result={}, file)
+  with open(file, 'w', encoding='utf-8') as f:
+    for platform, cities in dict_results.items():
+      f.write(f'Для группы {platform}:\n')
+      for city, expenses in cities.items():
+        f.write(f'- Город: {city}, доля затрат на рекламу: {expenses}%\n')
 
-with open('platform_city_results.txt', 'w', encoding='utf-8') as f:
-  for platform, cities in res.items():
-    f.write(f'Для группы {platform}:\n')
-    for city, expenses in cities.items():
-      f.write(f'- Город: {city}, доля затрат на рекламу: {expenses}%\n')
+res = get_platform_city_results()
+write_dict_to_file(res, 'platform_city_results.txt')
+
 
 
 def calculate_average_budget(file, filter):
